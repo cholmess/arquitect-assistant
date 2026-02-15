@@ -65,7 +65,8 @@ async def calculate_cabida(request: CalculationRequest):
             rejection_reasons=result.rejection_reasons,
             recommendations=recommendations
         )
-        
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error en cálculo de cabida: {str(e)}")
 

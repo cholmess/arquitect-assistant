@@ -58,7 +58,8 @@ async def upload_certificate(
                 "min_dwelling_area": min_dwelling_area
             }
         }
-        
+    except HTTPException:
+        raise
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
