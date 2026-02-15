@@ -75,6 +75,7 @@ function App() {
                   <Box>
                     <Upload 
                       onCertificateProcessed={handleCertificateProcessed}
+                      onCalculationComplete={handleCalculationComplete}
                       parameters={parameters}
                       onParametersChange={handleParametersChange}
                     />

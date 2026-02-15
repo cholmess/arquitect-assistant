@@ -22,7 +22,7 @@ import {
 import { CloudUpload, CheckCircle, Error } from '@mui/icons-material';
 import axios from 'axios';
 
-const Upload = ({ onCertificateProcessed, parameters, onParametersChange }) => {
+const Upload = ({ onCertificateProcessed, onCalculationComplete, parameters, onParametersChange }) => {
   const [uploading, setUploading] = useState(false);
   const [uploadResult, setUploadResult] = useState(null);
   const [error, setError] = useState(null);
@@ -100,6 +100,9 @@ const Upload = ({ onCertificateProcessed, parameters, onParametersChange }) => {
 
       if (response.data) {
         setUploadResult(prev => ({ ...prev, calculation_result: response.data }));
+        if (onCalculationComplete) {
+          onCalculationComplete(response.data);
+        }
         setActiveStep(2);
       }
     } catch (err) {
