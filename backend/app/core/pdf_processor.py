@@ -24,15 +24,15 @@ class PDFProcessor:
         # Patrones regex para extraer datos del certificado
         self.patterns = {
             'rol': r'Rol:\s*(\d+-\d+)',
-            'superficie': r'Superficie\s*(?:terreno|del terreno):\s*([\d.,]+)\s*m[²2]',
+            'superficie_terreno': r'Superficie\s*(?:terreno|del terreno):\s*([\d.,]+)\s*m[²2]',
             'direccion': r'Dirección:\s*([^\n]+)',
             'comuna': r'Comuna:\s*([^\n]+)',
-            'propietario': r'Propietario:\s*([^\n]+)',
+            'nombre_propietario': r'Propietario:\s*([^\n]+)',
             'uso_suelo': r'Uso\s*de\s*suelo:\s*([^\n]+)',
             'zona': r'Zona:\s*([^\n]+)',
-            'altura': r'Altura\s*máxima:\s*([\d.,]+)\s*m',
-            'constructibilidad': r'Coeficiente\s*de\s*constructibilidad:\s*([\d.,]+)',
-            'ocupacion': r'Porcentaje\s*de\s*ocupación:\s*([\d.,]+)%'
+            'altura_maxima': r'Altura\s*máxima:\s*([\d.,]+)\s*m',
+            'coeficiente_constructibilidad': r'Coeficiente\s*de\s*constructibilidad:\s*([\d.,]+)',
+            'porcentaje_ocupacion': r'Porcentaje\s*de\s*ocupación:\s*([\d.,]+)%'
         }
     
     def extract_text_from_pdf(self, pdf_content: bytes) -> str:
@@ -66,7 +66,12 @@ class PDFProcessor:
                 value = match.group(1).strip()
                 
                 # Limpiar y convertir valores numéricos
-                if field in ['superficie', 'altura', 'constructibilidad', 'ocupacion']:
+                if field in [
+                    'superficie_terreno',
+                    'altura_maxima',
+                    'coeficiente_constructibilidad',
+                    'porcentaje_ocupacion'
+                ]:
                     value = value.replace(',', '.')
                     try:
                         numeric_value = float(value)
