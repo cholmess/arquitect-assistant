@@ -28,8 +28,8 @@ async def generate_cabida_report(request: ReportRequest):
         
         # Generar PDF
         pdf_content = report_generator.generate_cabida_report(
-            certificate_data=request.certificate_data.dict(),
-            calculation_result=request.calculation_result.dict(),
+            certificate_data=request.certificate_data.model_dump(),
+            calculation_result=request.calculation_result.model_dump(),
             parameters=request.parameters
         )
         

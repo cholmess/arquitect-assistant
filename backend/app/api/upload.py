@@ -50,7 +50,7 @@ async def upload_certificate(
         return {
             "success": True,
             "message": "Certificado procesado exitosamente",
-            "certificate_data": certificate_data.dict(),
+            "certificate_data": certificate_data.model_dump(),
             "processing_time": processing_time,
             "parameters": {
                 "floors": floors,
@@ -96,7 +96,7 @@ async def validate_certificate_format(file: UploadFile = File(...)):
         # Extraer datos básicos para preview
         preview_data = {}
         if is_valid:
-            preview_data = processor.extract_certificate_data(text).dict()
+            preview_data = processor.extract_certificate_data(text).model_dump()
         
         return {
             "valid": is_valid,

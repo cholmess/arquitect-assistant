@@ -113,7 +113,7 @@ class ReportGenerator:
         # Información legal
         story.append(PageBreak())
         story.append(Paragraph("INFORMACIÓN LEGAL Y NORMATIVA", self.subtitle_style))
-        story.append(self._create_legal_info())
+        story.extend(self._create_legal_info())
         
         # Pie de página
         story.append(Spacer(1, 30))

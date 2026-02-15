@@ -97,8 +97,8 @@ async def quick_calculate(
         
         return {
             "success": True,
-            "result": result.dict(),
-            "parameters": params.dict()
+            "result": result.model_dump(),
+            "parameters": params.model_dump()
         }
         
     except Exception as e:

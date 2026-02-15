@@ -80,6 +80,11 @@ const Results = ({ certificateData, calculationResult, parameters, onCalculation
     return new Intl.NumberFormat('es-CL').format(num);
   };
 
+  const safeAllowedFloors = Math.max(calculationResult.allowed_floors || 0, 1);
+  const safeTotalSurface = Math.max(calculationResult.total_surface || 0, 1);
+  const floorsUsagePct = Math.min((parameters.floors / safeAllowedFloors) * 100, 100);
+  const densityPct = Math.min((calculationResult.max_building_surface / safeTotalSurface) * 100, 100);
+
   const resultsData = [
     {
       label: 'Cabida Máxima',
@@ -274,7 +279,7 @@ const Results = ({ certificateData, calculationResult, parameters, onCalculation
           </Box>
           <LinearProgress 
             variant="determinate" 
-            value={(parameters.floors / calculationResult.allowed_floors) * 100}
+            value={floorsUsagePct}
             color={parameters.floors <= calculationResult.allowed_floors ? 'success' : 'error'}
             sx={{ height: 8, borderRadius: 4 }}
           />
@@ -284,12 +289,12 @@ const Results = ({ certificateData, calculationResult, parameters, onCalculation
           <Box display="flex" justifyContent="space-between" mb={1}>
             <Typography variant="body2">Densidad de Construcción</Typography>
             <Typography variant="body2">
-              {((calculationResult.max_building_surface / calculationResult.total_surface) * 100).toFixed(1)}%
+              {densityPct.toFixed(1)}%
             </Typography>
           </Box>
           <LinearProgress 
             variant="determinate" 
-            value={(calculationResult.max_building_surface / calculationResult.total_surface) * 100}
+            value={densityPct}
             color="primary"
             sx={{ height: 8, borderRadius: 4 }}
           />
