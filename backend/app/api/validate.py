@@ -196,7 +196,7 @@ def _generate_warnings(result, params: OGUCParameters) -> List[ValidationError]:
             severity="warning"
         ))
     
-    if not params.coeficiente_constructibilidad or params.coeficiente_constructibilidad == 1.0:
+    if not params.constructibility_coef or params.constructibility_coef == 1.0:
         warnings.append(ValidationError(
             field="constructibility",
             message="Usando coeficiente de constructibilidad por defecto (1.0)",
