@@ -163,7 +163,7 @@ def _generate_optimization_recommendations(result: CabidaCalculation, params: OG
     if result.allowed_floors < params.floors:
         recommendations.append(
             f"Según la altura máxima, solo puede construir {result.allowed_floors} pisos "
-            f"en lugar de los {params.floos} solicitados."
+            f"en lugar de los {params.floors} solicitados."
         )
     
     if result.dwelling_units_max > 1 and params.min_dwelling_area > 40:
