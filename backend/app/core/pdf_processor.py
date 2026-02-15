@@ -93,7 +93,14 @@ class PDFProcessor:
         ]
         
         text_lower = text.lower()
-        return any(keyword in text_lower for keyword in required_keywords)
+        keyword_matches = sum(keyword in text_lower for keyword in required_keywords)
+
+        # Exigir la frase principal y al menos 3 de 4 indicadores base para
+        # reducir falsos positivos de documentos no CIP.
+        return (
+            'certificado de informaciones previas' in text_lower
+            and keyword_matches >= 3
+        )
     
     def process_file(self, file_content: bytes, filename: str) -> CertificateData:
         """Procesa un archivo (PDF o imagen) y extrae datos del certificado"""
